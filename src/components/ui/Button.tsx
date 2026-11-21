@@ -5,6 +5,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
   ariaExpanded?: boolean
+  ariaLabel?: string
 }
 
 function Button({
@@ -14,6 +15,7 @@ function Button({
   type = 'button',
   disabled = false,
   ariaExpanded,
+  ariaLabel,
 }: ButtonProps) {
   return (
     <button
@@ -22,6 +24,7 @@ function Button({
       onClick={onClick}
       disabled={disabled}
       aria-expanded={ariaExpanded}
+      aria-label={ariaLabel}
     >
       {label}
     </button>

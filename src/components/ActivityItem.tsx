@@ -5,6 +5,7 @@ import Button from './ui/Button'
 
 interface ActivityItemProps {
   activity: Activity
+  onDelete: (id: string) => void
 }
 
 const dateFormatter = new Intl.DateTimeFormat('id-ID', {
@@ -18,9 +19,15 @@ function formatDate(value: string): string {
   return dateFormatter.format(new Date(year, month - 1, day))
 }
 
-function ActivityItem({ activity }: ActivityItemProps) {
+function ActivityItem({ activity, onDelete }: ActivityItemProps) {
   const [showDetail, setShowDetail] = useState(false)
   const isFinished = activity.status === 'selesai'
+
+  const handleDelete = () => {
+    if (window.confirm(`Hapus kegiatan "${activity.title}"?`)) {
+      onDelete(activity.id)
+    }
+  }
 
   return (
     <li className="activity-item">
@@ -39,12 +46,20 @@ function ActivityItem({ activity }: ActivityItemProps) {
         {showDetail ? (
           <p className="activity-card__description">{activity.description}</p>
         ) : null}
-        <Button
-          label={showDetail ? 'Sembunyikan Detail' : 'Lihat Detail'}
-          onClick={() => setShowDetail((open) => !open)}
-          variant="netral"
-          ariaExpanded={showDetail}
-        />
+        <div className="activity-card__actions">
+          <Button
+            label={showDetail ? 'Sembunyikan Detail' : 'Lihat Detail'}
+            onClick={() => setShowDetail((open) => !open)}
+            variant="netral"
+            ariaExpanded={showDetail}
+          />
+          <Button
+            label="Hapus"
+            onClick={handleDelete}
+            variant="bahaya"
+            ariaLabel={`Hapus kegiatan ${activity.title}`}
+          />
+        </div>
       </article>
     </li>
   )

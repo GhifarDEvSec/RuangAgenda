@@ -12,3 +12,5 @@ export interface Activity {
   description: string
   status: ActivityStatus
 }
+
+export type NewActivityInput = Omit<Activity, 'id' | 'status'>

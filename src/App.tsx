@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import About from './components/About'
+import ActivityForm from './components/ActivityForm'
 import ActivityList from './components/ActivityList'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
 import appConfig from './config'
 import initialActivities from './data/initialActivities'
-import type { Activity } from './types'
+import type { Activity, NewActivityInput } from './types'
 import Badge from './components/ui/Badge'
 
 const navLinks = [
@@ -16,7 +17,23 @@ const navLinks = [
 ]
 
 function App() {
-  const [activities] = useState<Activity[]>(initialActivities)
+  const [activities, setActivities] = useState<Activity[]>(initialActivities)
+
+  const handleAdd = (input: NewActivityInput) => {
+    const newActivity: Activity = {
+      ...input,
+      id: crypto.randomUUID(),
+      status: 'belum',
+    }
+
+    setActivities((current) => [newActivity, ...current])
+  }
+
+  const handleDelete = (id: string) => {
+    setActivities((current) =>
+      current.filter((activity) => activity.id !== id),
+    )
+  }
 
   return (
     <>
@@ -31,7 +48,8 @@ function App() {
             <h2 className="section-title">Daftar Kegiatan</h2>
             <Badge text={`${activities.length} Kegiatan`} tone="netral" />
           </div>
-          <ActivityList activities={activities} />
+          <ActivityForm onAdd={handleAdd} />
+          <ActivityList activities={activities} onDelete={handleDelete} />
         </div>
       </section>
       <About
