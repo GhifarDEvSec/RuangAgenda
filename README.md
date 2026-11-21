@@ -4,7 +4,6 @@ RuangAgenda adalah aplikasi web untuk mencatat dan memantau agenda kegiatan maha
 
 **Pembuat:** (nama lengkap)
 **NIM:** (NIM)
-**Aplikasi online:** (https://NAMA-SITUS.netlify.app)
 
 ## Cara Memakai
 
