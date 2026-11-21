@@ -6,6 +6,7 @@ import Button from './ui/Button'
 interface ActivityItemProps {
   activity: Activity
   onDelete: (id: string) => void
+  onToggleStatus: (id: string) => void
 }
 
 const dateFormatter = new Intl.DateTimeFormat('id-ID', {
@@ -19,7 +20,11 @@ function formatDate(value: string): string {
   return dateFormatter.format(new Date(year, month - 1, day))
 }
 
-function ActivityItem({ activity, onDelete }: ActivityItemProps) {
+function ActivityItem({
+  activity,
+  onDelete,
+  onToggleStatus,
+}: ActivityItemProps) {
   const [showDetail, setShowDetail] = useState(false)
   const isFinished = activity.status === 'selesai'
 
@@ -33,7 +38,15 @@ function ActivityItem({ activity, onDelete }: ActivityItemProps) {
     <li className="activity-item">
       <article className="activity-card">
         <div className="activity-card__head">
-          <h3 className="activity-card__title">{activity.title}</h3>
+          <h3
+            className={
+              isFinished
+                ? 'activity-card__title activity-card__title--done'
+                : 'activity-card__title'
+            }
+          >
+            {activity.title}
+          </h3>
           <div className="activity-card__badges">
             <Badge text={activity.category} tone="netral" />
             <Badge
@@ -52,6 +65,11 @@ function ActivityItem({ activity, onDelete }: ActivityItemProps) {
             onClick={() => setShowDetail((open) => !open)}
             variant="netral"
             ariaExpanded={showDetail}
+          />
+          <Button
+            label={isFinished ? 'Tandai Belum' : 'Tandai Selesai'}
+            onClick={() => onToggleStatus(activity.id)}
+            variant={isFinished ? 'netral' : 'utama'}
           />
           <Button
             label="Hapus"

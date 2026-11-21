@@ -5,9 +5,14 @@ import EmptyState from './EmptyState'
 interface ActivityListProps {
   activities: Activity[]
   onDelete: (id: string) => void
+  onToggleStatus: (id: string) => void
 }
 
-function ActivityList({ activities, onDelete }: ActivityListProps) {
+function ActivityList({
+  activities,
+  onDelete,
+  onToggleStatus,
+}: ActivityListProps) {
   if (activities.length === 0) {
     return <EmptyState message="Belum ada kegiatan" />
   }
@@ -19,6 +24,7 @@ function ActivityList({ activities, onDelete }: ActivityListProps) {
           activity={activity}
           key={activity.id}
           onDelete={onDelete}
+          onToggleStatus={onToggleStatus}
         />
       ))}
     </ul>

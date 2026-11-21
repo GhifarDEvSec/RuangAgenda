@@ -666,3 +666,113 @@
     justify-content: flex-end;
   }
 }
+
+.activities__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.activity-card__title--done {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding: clamp(16px, 3vw, 22px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.filter-bar__search {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-bar__label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.filter-bar__input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  color: var(--color-text);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--text-base);
+  color-scheme: dark;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-bar__input:hover {
+  border-color: var(--color-border-strong);
+}
+
+.filter-bar__input:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(201, 247, 90, 0.18);
+}
+
+.filter-bar__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-bar__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.filter-bar__button:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.filter-bar__button--active {
+  color: var(--color-accent-ink);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.filter-bar__button--active:hover {
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent-strong);
+}
+
+@media (min-width: 768px) {
+  .filter-bar {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .filter-bar__search {
+    flex: 1;
+    max-width: 420px;
+  }
+}
