@@ -4,6 +4,7 @@ interface ButtonProps {
   variant?: 'utama' | 'netral' | 'bahaya'
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
+  ariaExpanded?: boolean
 }
 
 function Button({
@@ -12,6 +13,7 @@ function Button({
   variant = 'utama',
   type = 'button',
   disabled = false,
+  ariaExpanded,
 }: ButtonProps) {
   return (
     <button
@@ -19,6 +21,7 @@ function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
+      aria-expanded={ariaExpanded}
     >
       {label}
     </button>
