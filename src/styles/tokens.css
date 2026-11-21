@@ -1,0 +1,38 @@
+:root {
+  --font-sans: 'Outfit Variable', sans-serif;
+  --color-bg: #050b1a;
+  --color-bg-soft: #081122;
+  --color-surface: #0d1930;
+  --color-surface-strong: #11213e;
+  --color-border: #223557;
+  --color-border-strong: #34507d;
+  --color-text: #f1f5ff;
+  --color-text-muted: #aebbd6;
+  --color-accent: #c9f75a;
+  --color-accent-strong: #b7ea3f;
+  --color-accent-ink: #08130a;
+  --color-success: #7ce7a5;
+  --color-warning: #ffd166;
+  --color-danger: #ff8080;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+  --shadow-soft: 0 18px 40px rgba(2, 8, 24, 0.45);
+  --shadow-glow: 0 0 0 1px rgba(201, 247, 90, 0.28),
+    0 18px 44px rgba(0, 0, 0, 0.35);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --container-width: 1100px;
+  --text-sm: clamp(0.86rem, 0.82rem + 0.2vw, 0.95rem);
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --text-lg: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --text-xl: clamp(1.45rem, 1.2rem + 1.1vw, 2rem);
+  --text-hero: clamp(2.5rem, 1.6rem + 4.4vw, 4.6rem);
+}

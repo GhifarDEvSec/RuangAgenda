@@ -1,10 +1,38 @@
+import About from './components/About'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Navbar from './components/Navbar'
+import appConfig from './config'
+
+const navLinks = [
+  { label: 'Beranda', href: '#beranda' },
+  { label: 'Kegiatan', href: '#kegiatan' },
+  { label: 'Tentang', href: '#tentang' },
+]
+
 function App() {
   return (
-    <main>
-      <h1>{import.meta.env.VITE_APP_NAME}</h1>
-      <p>Nama Mahasiswa: {import.meta.env.VITE_STUDENT_NAME}</p>
-      <p>NIM: {import.meta.env.VITE_STUDENT_NIM}</p>
-    </main>
+    <>
+      <Navbar appName={appConfig.appName} links={navLinks} />
+      <Header
+        studentName={appConfig.studentName}
+        studentNim={appConfig.studentNim}
+      />
+      <section className="activities" id="kegiatan">
+        <div className="container">
+          <h2 className="section-title">Daftar Kegiatan</h2>
+        </div>
+      </section>
+      <About
+        studentName={appConfig.studentName}
+        studentNim={appConfig.studentNim}
+      />
+      <Footer
+        appName={appConfig.appName}
+        studentName={appConfig.studentName}
+        studentNim={appConfig.studentNim}
+      />
+    </>
   )
 }
 

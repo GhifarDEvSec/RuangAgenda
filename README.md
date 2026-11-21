@@ -1,87 +1,71 @@
-# Instruksi Agent: React 1 dari 5 (Inisialisasi Proyek)
+# Tahap 2 dari 5: Layout dan Komponen Dasar
 
-## 1. Konteks
+## Konteks
+Tahap 1 selesai. Kerjakan hanya tipe data, layout, komponen reusable, dan CSS dasar. Daftar, form, dan filter dikerjakan di tahap lain. Setelah selesai, berhenti.
 
-Aplikasi web "Agenda Kegiatan Mahasiswa" dengan React, Vite, dan TypeScript untuk tugas Component-Based UI Development. Pekerjaan dibagi 5 tahap. Sekarang hanya mengerjakan tahap 1. Jangan membuat komponen atau fitur milik tahap lain. Setelah selesai, berhenti dan tunggu perintah.
+## Aturan
+- Hanya git status dan git diff.
+- Dilarang komentar, tipe any, framework CSS, pustaka komponen, dan sumber eksternal (CDN, Google Fonts).
+- Dilarang menyebut AI, agent, atau nama tool di berkas repo. Jangan membuat PROGRESS.md atau STRUCTURE.md.
+- Satu komponen satu berkas, nama berkas sama dengan nama komponen, ekspor default, props bertipe interface.
+- Teks antarmuka Bahasa Indonesia. Hanya sentuh berkas tahap ini.
 
-## 2. Aturan
+## Syarat tugas yang dipenuhi tahap ini
+- Minimal 5 komponen di file berbeda: Navbar, Header, About, Footer, Button, Badge (6 komponen).
+- Reusable: Button dan Badge menerima props sehingga dipakai ulang di banyak tempat.
+- Props: App mengirim data ke Navbar, Header, About, Footer.
+- useState dan event handling: tombol menu di Navbar.
+- Conditional rendering: menu mobile tampil atau tersembunyi.
+- List rendering: tautan Navbar dirender dengan map dan key.
+- Navigasi jelas, nama dan NIM tampil.
 
-- Jangan menjalankan git add, commit, branch, switch, merge, push, pull. Hanya git status dan git diff yang diperbolehkan.
-- Jangan deploy.
-- Dilarang menulis komentar di kode apa pun (TS, TSX, CSS, HTML, konfigurasi).
-- Dilarang memakai tipe any.
-- Teks antarmuka Bahasa Indonesia.
-- Folder kerja adalah hasil git clone repo kosong. Buat proyek langsung di root folder ini, bukan di subfolder. Jangan menghapus folder .git.
-
-## 3. Stack
-
-Vite versi stabil terbaru dengan template react-ts, React, TypeScript strict, npm. Buat proyek tanpa mode interaktif (misalnya npm create vite@latest . -- --template react-ts) dan pilih opsi yang tidak memulai server otomatis.
-
-## 4. Spesifikasi
-
-### Berkas akhir
+## Dependensi
 ```
-index.html
-package.json
-package-lock.json
-tsconfig.json (dan tsconfig turunan bawaan template)
-vite.config.ts
-.gitignore
-.env
-.env.example
-PROGRESS.md
-STRUCTURE.md
-public/favicon.svg
-src/main.tsx
-src/App.tsx
-src/vite-env.d.ts
+npm install @fontsource-variable/outfit
 ```
+Impor di main.tsx. Font Outfit dengan fallback sans-serif.
 
-### index.html
-- lang="id", meta viewport, title "Agenda Kegiatan Mahasiswa", favicon dari public/favicon.svg.
-
-### .env (tidak boleh masuk Git)
+## Berkas wajib
+Dibuat:
 ```
-VITE_APP_NAME=Agenda Kegiatan Mahasiswa
-VITE_STUDENT_NAME=Nama Mahasiswa
-VITE_STUDENT_NIM=0000000000
+src/types.ts
+src/config.ts
+src/components/Navbar.tsx
+src/components/Header.tsx
+src/components/About.tsx
+src/components/Footer.tsx
+src/components/ui/Button.tsx
+src/components/ui/Badge.tsx
+src/styles/tokens.css
+src/styles/base.css
+src/styles/components.css
 ```
-.env.example berisi sama persis dan wajib masuk Git. Dilarang menaruh password, token, atau API key di sini. vite-env.d.ts memperluas ImportMetaEnv dengan tiga variabel itu.
+Diubah: src/App.tsx, src/main.tsx.
 
-### .gitignore
-```
-node_modules
-dist
-.env
-.env.local
-.env.*.local
-*.log
-.DS_Store
-.vscode/*
-!.vscode/extensions.json
-```
+## Spesifikasi
+- types.ts: ActivityId = string; ActivityStatus = "belum" | "selesai"; ActivityCategory = "Akademik" | "Organisasi" | "Pribadi"; interface Activity (id, title, category, date YYYY-MM-DD, description, status).
+- config.ts: membaca tiga variabel env, mengekspor appConfig (appName, studentName, studentNim). Satu-satunya tempat membaca import.meta.env.
+- Button: props label, onClick, variant ("utama" | "netral" | "bahaya"), type, disabled, elemen button.
+- Badge: props text, tone ("sukses" | "peringatan" | "netral"), elemen span.
+- Navbar: props appName dan links (array interface NavLink: label, href). Tautan Beranda (#beranda), Kegiatan (#kegiatan), Tentang (#tentang) dirender dengan map dan key. Di bawah 768px menu disembunyikan dan dibuka tombol menu memakai useState; menu menutup setelah tautan diklik.
+- Header (id beranda): props studentName, studentNim. Judul besar, kalimat singkat, nama dan NIM.
+- About (id tentang): penjelasan singkat aplikasi, nama dan NIM pembuat.
+- Footer: props appName, studentName, studentNim.
+- App: Navbar, Header, section kosong id kegiatan berjudul "Daftar Kegiatan", About, Footer. Data dari appConfig dikirim sebagai props.
 
-### src/App.tsx dan src/main.tsx
-- main.tsx merender App di dalam StrictMode.
-- App hanya menampilkan satu elemen berisi nilai VITE_APP_NAME, VITE_STUDENT_NAME, dan VITE_STUDENT_NIM sebagai bukti env terbaca. Belum ada komponen lain.
+## Desain
+Latar biru sangat gelap, kartu sedikit lebih terang dengan border tipis, satu aksen lime, teks terang kontras minimal 4.5:1. Judul besar dengan satu kata berwarna aksen. Hover halus, dimatikan pada prefers-reduced-motion. Bukan tampilan template bawaan.
+- tokens.css: warna, radius, bayangan, jarak, font fluid (clamp).
+- base.css: reset ringan, container maksimum 1100px (padding 16px, 24px di tablet ke atas), tanpa scroll horizontal, scroll-behavior smooth (mati pada reduced-motion), fokus keyboard jelas, navbar sticky.
+- components.css: semua komponen, rapi di 360px, 768px, 1024px, 1440px, target sentuh minimal 44px.
 
-### public/favicon.svg
-Ikon sederhana kalender atau centang, satu warna utama.
-
-### Pembersihan
-Hapus App.css, index.css bawaan, assets/react.svg, public/vite.svg, dan isi contoh template. Pastikan tidak ada rujukan ke berkas yang dihapus. Biarkan tsconfig strict aktif dan script bawaan (dev, build, preview, lint).
-
-### PROGRESS.md dan STRUCTURE.md
-PROGRESS.md: nomor tahap, status, berkas dibuat, diubah, dihapus, hal belum selesai. STRUCTURE.md: pohon direktori dan satu baris fungsi tiap berkas penting.
-
-## 5. Checkpoint
-
-- [ ] npm install tanpa error
-- [ ] npm run dev menampilkan nama aplikasi, nama, dan NIM dari env
+## Checkpoint
+- [ ] Semua berkas wajib di atas ada (periksa dengan ls)
 - [ ] npm run build berhasil
-- [ ] .env tidak muncul di git status, .env.example muncul
-- [ ] Tidak ada komentar dan tidak ada any
+- [ ] Navigasi menggulir ke tiga bagian, menu mobile berfungsi
+- [ ] Nama dan NIM tampil di header, About, footer
+- [ ] Tanpa scroll horizontal, komentar, any, atau penyebutan AI/agent
+- [ ] .env tidak muncul di git status
 
-## 6. Laporan Akhir
-
-Tampilkan pohon direktori, hasil npm run build, keluaran git status (hanya baca), dan saran commit tanpa menjalankannya: "chore: inisialisasi proyek React Vite TypeScript". Tutup dengan: "React 1 selesai. Menunggu perintah lanjut React 2." Lalu berhenti.
+## Laporan Akhir
+Pohon direktori, hasil build, git status, saran commit: "feat: tambah layout dan komponen dasar". Tutup dengan "Tahap 2 selesai." lalu berhenti.
