@@ -1,12 +1,15 @@
 import Badge from './ui/Badge'
 import Button from './ui/Button'
+import type { StudentProfile } from '../types'
 
 interface HeaderProps {
-  studentName: string
-  studentNim: string
+  profile: StudentProfile
 }
 
-function Header({ studentName, studentNim }: HeaderProps) {
+function Header({ profile }: HeaderProps) {
+  const hasProfile =
+    profile.name.trim() !== '' && profile.nim.trim() !== ''
+
   const scrollToActivities = () => {
     document.getElementById('kegiatan')?.scrollIntoView()
   }
@@ -44,9 +47,15 @@ function Header({ studentName, studentNim }: HeaderProps) {
             <span className="hero__panel-dot" aria-hidden="true" />
             <span>Profil Mahasiswa</span>
           </div>
-          <p className="hero__panel-name">{studentName}</p>
-          <p className="hero__panel-nim">NIM {studentNim}</p>
-          <Badge text="Siap Berkegiatan" tone="peringatan" />
+          {hasProfile ? (
+            <>
+              <p className="hero__panel-name">{profile.name}</p>
+              <p className="hero__panel-nim">NIM {profile.nim}</p>
+              <Badge text="Siap Berkegiatan" tone="peringatan" />
+            </>
+          ) : (
+            <p className="profile-empty">Data diri belum diisi</p>
+          )}
         </aside>
       </div>
     </header>

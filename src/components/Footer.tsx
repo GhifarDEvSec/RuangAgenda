@@ -1,10 +1,14 @@
+import type { StudentProfile } from '../types'
+
 interface FooterProps {
   appName: string
-  studentName: string
-  studentNim: string
+  profile: StudentProfile
 }
 
-function Footer({ appName, studentName, studentNim }: FooterProps) {
+function Footer({ appName, profile }: FooterProps) {
+  const hasProfile =
+    profile.name.trim() !== '' && profile.nim.trim() !== ''
+
   return (
     <footer className="footer">
       <div className="container footer__inner">
@@ -15,8 +19,14 @@ function Footer({ appName, studentName, studentNim }: FooterProps) {
           </p>
         </div>
         <div className="footer__meta">
-          <p>{studentName}</p>
-          <p>NIM {studentNim}</p>
+          {hasProfile ? (
+            <>
+              <p>{profile.name}</p>
+              <p>NIM {profile.nim}</p>
+            </>
+          ) : (
+            <p className="profile-empty">Data diri belum diisi</p>
+          )}
         </div>
       </div>
     </footer>

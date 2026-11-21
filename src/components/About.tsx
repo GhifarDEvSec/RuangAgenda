@@ -1,12 +1,15 @@
 import Badge from './ui/Badge'
 import Button from './ui/Button'
+import type { StudentProfile } from '../types'
 
 interface AboutProps {
-  studentName: string
-  studentNim: string
+  profile: StudentProfile
 }
 
-function About({ studentName, studentNim }: AboutProps) {
+function About({ profile }: AboutProps) {
+  const hasProfile =
+    profile.name.trim() !== '' && profile.nim.trim() !== ''
+
   return (
     <section className="about" id="tentang">
       <div className="container about__inner">
@@ -31,9 +34,15 @@ function About({ studentName, studentNim }: AboutProps) {
         </div>
         <div className="about__card">
           <p className="about__label">Dibuat oleh</p>
-          <p className="about__name">{studentName}</p>
-          <p className="about__nim">NIM {studentNim}</p>
-          <Badge text="Mahasiswa" tone="sukses" />
+          {hasProfile ? (
+            <>
+              <p className="about__name">{profile.name}</p>
+              <p className="about__nim">NIM {profile.nim}</p>
+              <Badge text="Mahasiswa" tone="sukses" />
+            </>
+          ) : (
+            <p className="profile-empty">Data diri belum diisi</p>
+          )}
         </div>
       </div>
     </section>

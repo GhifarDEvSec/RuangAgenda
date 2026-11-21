@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Button from './ui/Button'
 
 export interface NavLink {
   label: string
@@ -8,9 +9,10 @@ export interface NavLink {
 interface NavbarProps {
   appName: string
   links: NavLink[]
+  onEditProfile: () => void
 }
 
-function Navbar({ appName, links }: NavbarProps) {
+function Navbar({ appName, links, onEditProfile }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const closeMenu = () => {
@@ -49,6 +51,13 @@ function Navbar({ appName, links }: NavbarProps) {
               </a>
             </li>
           ))}
+          <li className="navbar__item navbar__item--action">
+            <Button
+              label="Ubah Data Diri"
+              onClick={onEditProfile}
+              variant="netral"
+            />
+          </li>
         </ul>
       </div>
     </nav>

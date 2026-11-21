@@ -7,14 +7,17 @@ import FilterBar from './components/FilterBar'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
+import ProfileForm from './components/ProfileForm'
 import Badge from './components/ui/Badge'
 import appConfig from './config'
 import initialActivities from './data/initialActivities'
+import { useStudentProfile } from './hooks/useStudentProfile'
 import type {
   Activity,
   ActivityStatus,
   NewActivityInput,
   StatusFilter,
+  StudentProfile,
 } from './types'
 
 const navLinks = [
@@ -24,9 +27,16 @@ const navLinks = [
 ]
 
 function App() {
+  const { profile, saveProfile, hasProfile } = useStudentProfile()
+  const [showProfileForm, setShowProfileForm] = useState(false)
   const [activities, setActivities] = useState<Activity[]>(initialActivities)
   const [keyword, setKeyword] = useState('')
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('semua')
+
+  const handleSaveProfile = (nextProfile: StudentProfile) => {
+    saveProfile(nextProfile)
+    setShowProfileForm(false)
+  }
 
   const handleAdd = (input: NewActivityInput) => {
     const newActivity: Activity = {
@@ -84,14 +94,16 @@ function App() {
     (activity) => activity.status === 'selesai',
   ).length
   const pendingActivities = totalActivities - finishedActivities
+  const isProfileFormVisible = !hasProfile || showProfileForm
 
   return (
     <>
-      <Navbar appName={appConfig.appName} links={navLinks} />
-      <Header
-        studentName={appConfig.studentName}
-        studentNim={appConfig.studentNim}
+      <Navbar
+        appName={appConfig.appName}
+        links={navLinks}
+        onEditProfile={() => setShowProfileForm(true)}
       />
+      <Header profile={profile} />
       <section className="activities" id="kegiatan">
         <div className="container">
           <div className="activities__head">
@@ -120,15 +132,15 @@ function App() {
           )}
         </div>
       </section>
-      <About
-        studentName={appConfig.studentName}
-        studentNim={appConfig.studentNim}
-      />
-      <Footer
-        appName={appConfig.appName}
-        studentName={appConfig.studentName}
-        studentNim={appConfig.studentNim}
-      />
+      <About profile={profile} />
+      <Footer appName={appConfig.appName} profile={profile} />
+      {isProfileFormVisible ? (
+        <ProfileForm
+          initialProfile={profile}
+          onSave={handleSaveProfile}
+          onCancel={hasProfile ? () => setShowProfileForm(false) : undefined}
+        />
+      ) : null}
     </>
   )
 }

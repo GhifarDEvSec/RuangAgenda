@@ -16,3 +16,8 @@ export interface Activity {
 export type NewActivityInput = Omit<Activity, 'id' | 'status'>
 
 export type StatusFilter = ActivityStatus | 'semua'
+
+export interface StudentProfile {
+  name: string
+  nim: string
+}
